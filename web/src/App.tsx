@@ -1,6 +1,7 @@
 import React from 'react';
-import Repository from './components/Repository';
+import RepositoryList from './components/RepositoryList';
 import LanguagePanel from './components/LanguagePanel';
+import Repository from './components/Repository';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -9,6 +10,7 @@ import './App.css';
 export function App() {
   const [repos, setRepos] = useState([]);
   const [displayedRepos, setDisplayedRepos] = useState([]);
+  const [selectedRepository, setSelectedRepository] = useState<any>(null);
   const [languages, setLanguages] = useState<string[]>([]);
 
   useEffect(() => {
@@ -42,18 +44,29 @@ export function App() {
   const onFilter = (language: string) => {
     setDisplayedRepos(repos.filter((repo: any) => repo.language === language));
   };
-  return (
-    <div className="App">
-      <LanguagePanel languages={languages} onFilter={onFilter} />
-      {displayedRepos.map((repo: any) => (
-        <Repository
-          key={repo.id}
-          title={repo.name}
-          description={repo.description}
-          language={repo.description}
-          forkCount={repo.forks_count}
-        />
-      ))}
-    </div>
-  );
+  const onRepoClick = (title: string) => {
+    const repo = repos.find((el: any) => el.name === title);
+    setSelectedRepository(repo);
+  };
+
+  if (selectedRepository) {
+    const url = selectedRepository.commits_url;
+    return <Repository commitUrl={url} />;
+  } else {
+    return (
+      <div className="App">
+        <LanguagePanel languages={languages} onFilter={onFilter} />
+        {displayedRepos.map((repo: any) => (
+          <RepositoryList
+            key={repo.id}
+            title={repo.name}
+            description={repo.description}
+            language={repo.description}
+            forkCount={repo.forks_count}
+            onRepoClick={onRepoClick}
+          />
+        ))}
+      </div>
+    );
+  }
 }
