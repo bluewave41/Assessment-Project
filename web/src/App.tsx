@@ -51,7 +51,9 @@ export function App() {
 
   if (selectedRepository) {
     const url = selectedRepository.commits_url;
-    return <Repository commitUrl={url} />;
+    return (
+      <Repository commitUrl={url} fullName={selectedRepository.full_name} />
+    );
   } else {
     return (
       <div className="App">
