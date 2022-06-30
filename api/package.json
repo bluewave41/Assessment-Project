@@ -4,6 +4,7 @@
   "description": "Example API server",
   "private": true,
   "scripts": {
+	"winStart": "set DEBUG=api & ts-node-dev -- ./src/index.ts",
     "start": "DEBUG=api ts-node-dev -- ./src/index.ts",
     "test": "node -e \"console.log('No tests yet!')\"",
     "lint": "eslint 'src/**/*.{js,ts}'",

@@ -82,7 +82,7 @@ const newConfig = Object.assign({}, config, {
             },
             {
               selector: ['property', 'variable'],
-              format: ['camelCase', 'UPPER_CASE'],
+              format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
             },
             {
               selector: ['function', 'parameter'],
