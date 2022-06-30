@@ -14,7 +14,12 @@ export function App() {
         const response = await axios.get(
           process.env.REACT_APP_API_LINK + 'repos'
         );
-        setRepos(response.data);
+
+        const sortedRepos = response.data.sort(
+          (a: any, b: any) =>
+            Date.parse(a.created_at) - Date.parse(b.created_at)
+        );
+        setRepos(sortedRepos);
       } catch (e) {
         console.log(e);
       }
