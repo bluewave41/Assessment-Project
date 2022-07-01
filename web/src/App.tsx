@@ -57,6 +57,7 @@ export function App() {
     const url = selectedRepository.commits_url;
     return (
       <Repository
+        name={selectedRepository.name}
         commitUrl={url}
         fullName={selectedRepository.full_name}
         onBackClick={onBackClick}

@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import './Repository.css';
 
 interface RepositoryProps {
+  name: string;
   commitUrl: string;
   fullName: string;
   onBackClick: any;
@@ -40,9 +41,10 @@ const Repository = (props: RepositoryProps) => {
   }
   return (
     <div className="repository">
-      <div>{commitData.commit.author.name}</div>
-      <div>{new Date(commitData.commit.author.date).toDateString()}</div>
-      <div>{commitData.commit.message}</div>
+      <h1>{props.name}</h1>
+      <div>Author: {commitData.commit.author.name}</div>
+      <div>Date: {new Date(commitData.commit.author.date).toDateString()}</div>
+      <div>Message: {commitData.commit.message}</div>
       <div style={{ backgroundColor: 'gray' }}>
         <ReactMarkdown>{commitData.readme}</ReactMarkdown>
       </div>
