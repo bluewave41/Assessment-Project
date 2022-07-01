@@ -12,6 +12,10 @@ interface RepositoryProps {
   onBackClick: any;
 }
 
+/**
+ * Displays the latest commit information for a single repository.
+ * @param props
+ */
 const Repository = (props: RepositoryProps) => {
   const [commitData, setCommitData] = useState<any>({});
   const [error, setError] = useState('');
@@ -72,7 +76,7 @@ const Repository = (props: RepositoryProps) => {
       {commitData.readme && (
         <div className="repository">
           <h2>Readme</h2>
-          <div style={{ backgroundColor: 'gray' }}>
+          <div style={{ backgroundColor: '#333' }}>
             <ReactMarkdown>{commitData.readme}</ReactMarkdown>
           </div>
         </div>

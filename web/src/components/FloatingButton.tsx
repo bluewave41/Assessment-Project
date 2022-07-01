@@ -4,13 +4,18 @@ interface FloatingButtonProps {
   onClick: any;
 }
 
+/**
+ * Draws a floating arrow to return to the full repo list page. Text isn't exactly centered so it's shifted up a little
+ * with the margin-bottom 10px.
+ * @param props
+ */
 const FloatingButton = (props: FloatingButtonProps) => {
   return (
     <div
       style={{
         width: '100px',
         height: '100px',
-        backgroundColor: 'gray',
+        backgroundColor: '#333',
         fontSize: '64px',
         borderRadius: '50%',
         position: 'absolute',
@@ -23,7 +28,7 @@ const FloatingButton = (props: FloatingButtonProps) => {
       }}
       onClick={props.onClick}
     >
-      &#8592;
+      <div style={{ marginBottom: '10px' }}>&#8592;</div>
     </div>
   );
 };
