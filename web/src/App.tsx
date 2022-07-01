@@ -5,6 +5,11 @@ import Repository from './components/Repository';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 import './App.css';
 
 export function App() {
@@ -69,17 +74,7 @@ export function App() {
     return (
       <div className="App">
         <LanguagePanel languages={languages} onFilter={onFilter} />
-        {displayedRepos.map((repo: any) => (
-          <RepositoryList
-            key={repo.id}
-            title={repo.name}
-            description={repo.description}
-            language={repo.language}
-            forkCount={repo.forks_count}
-            avatar={repo.owner.avatar_url}
-            onRepoClick={onRepoClick}
-          />
-        ))}
+        <RepositoryList repos={displayedRepos} onRepoClick={onRepoClick} />
       </div>
     );
   }
