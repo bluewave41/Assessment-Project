@@ -12,6 +12,8 @@ interface RepositoryProps {
 
 const Repository = (props: RepositoryProps) => {
   const [commitData, setCommitData] = useState<any>({});
+  const [error, setError] = useState('');
+
   useEffect(() => {
     async function getCommits() {
       //example URL: //https://api.github.com/repos/silverorange/admin/commits{/sha}
@@ -19,8 +21,12 @@ const Repository = (props: RepositoryProps) => {
 
       const data: any = {};
 
-      const response = await axios.get(props.commitUrl.replace(/\{.*\}/, ''));
-      data.commit = response.data[0].commit;
+      try {
+        const response = await axios.get(props.commitUrl.replace(/\{.*\}/, ''));
+        data.commit = response.data[0].commit;
+      } catch (e) {
+        setError('No commits found for that repository.');
+      }
 
       try {
         const readmeResponse = await axios.get(
@@ -36,7 +42,14 @@ const Repository = (props: RepositoryProps) => {
     getCommits();
   }, [props.commitUrl, props.fullName]);
 
-  if (!commitData.hasOwnProperty('commit')) {
+  if (error) {
+    return (
+      <div>
+        <div>{error}</div>
+        <button onClick={props.onBackClick}>Back</button>
+      </div>
+    );
+  } else if (!commitData.hasOwnProperty('commit')) {
     return null;
   }
   return (
