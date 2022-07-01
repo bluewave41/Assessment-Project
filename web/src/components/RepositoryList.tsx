@@ -6,17 +6,25 @@ interface RepositoryListProps {
   description: string;
   language: string;
   forkCount: number;
+  avatar: string;
   onRepoClick: any;
 }
 const RepositoryList = (props: RepositoryListProps) => {
   return (
-    <div>
-      <div className="link" onClick={() => props.onRepoClick(props.title)}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginBottom: '10px',
+      }}
+    >
+      <span className="link" onClick={() => props.onRepoClick(props.title)}>
         {props.title}
-      </div>
-      <div>{props.description}</div>
-      <div>{props.language}</div>
-      <div>{props.forkCount}</div>
+      </span>
+      <div>Description: {props.description}</div>
+      <div>Language: {props.language}</div>
+      <div>Forks count: {props.forkCount}</div>
     </div>
   );
 };

@@ -9,6 +9,7 @@ import './App.css';
 
 export function App() {
   const [repos, setRepos] = useState([]);
+  const [error, setError] = useState<string>('');
   const [displayedRepos, setDisplayedRepos] = useState([]);
   const [selectedRepository, setSelectedRepository] = useState<any>(null);
   const [languages, setLanguages] = useState<string[]>([]);
@@ -35,7 +36,7 @@ export function App() {
         setDisplayedRepos(sortedRepos);
         setLanguages(usedLanguages);
       } catch (e) {
-        console.log(e);
+        setError('An error occured. Please refresh the page.');
       }
     }
     getData();
@@ -48,12 +49,21 @@ export function App() {
     const repo = repos.find((el: any) => el.name === title);
     setSelectedRepository(repo);
   };
+  const onBackClick = () => {
+    setSelectedRepository(null);
+  };
 
   if (selectedRepository) {
     const url = selectedRepository.commits_url;
     return (
-      <Repository commitUrl={url} fullName={selectedRepository.full_name} />
+      <Repository
+        commitUrl={url}
+        fullName={selectedRepository.full_name}
+        onBackClick={onBackClick}
+      />
     );
+  } else if (error) {
+    return <div>{error}</div>;
   } else {
     return (
       <div className="App">
@@ -63,8 +73,9 @@ export function App() {
             key={repo.id}
             title={repo.name}
             description={repo.description}
-            language={repo.description}
+            language={repo.language}
             forkCount={repo.forks_count}
+            avatar={repo.owner.avatar_url}
             onRepoClick={onRepoClick}
           />
         ))}
