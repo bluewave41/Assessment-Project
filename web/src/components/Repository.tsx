@@ -16,12 +16,12 @@ const Repository = (props: RepositoryProps) => {
 
   useEffect(() => {
     async function getCommits() {
-      //example URL: //https://api.github.com/repos/silverorange/admin/commits{/sha}
-      //lets remove the {/sha} with a regex
-
       const data: any = {};
 
       try {
+        //example URL: //https://api.github.com/repos/silverorange/admin/commits{/sha}
+        //lets remove the {/sha} with a regex
+
         const response = await axios.get(props.commitUrl.replace(/\{.*\}/, ''));
         data.commit = response.data[0].commit;
       } catch (e) {
@@ -58,6 +58,7 @@ const Repository = (props: RepositoryProps) => {
       <div>Author: {commitData.commit.author.name}</div>
       <div>Date: {new Date(commitData.commit.author.date).toDateString()}</div>
       <div>Message: {commitData.commit.message}</div>
+      <h2>Readme</h2>
       <div style={{ backgroundColor: 'gray' }}>
         <ReactMarkdown>{commitData.readme}</ReactMarkdown>
       </div>

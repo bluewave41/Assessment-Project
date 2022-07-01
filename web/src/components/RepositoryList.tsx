@@ -1,5 +1,4 @@
 import React from 'react';
-import './RepositoryList.css';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';

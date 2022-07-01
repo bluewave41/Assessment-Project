@@ -1,10 +1,11 @@
 import React from 'react';
+import Button from '@mui/material/Button';
 
 const LanguagePanel = (props: any) => {
   return props.languages.map((language: string) => (
-    <button key={language} onClick={() => props.onFilter(language)}>
+    <Button key={language} onClick={() => props.onFilter(language)}>
       {language}
-    </button>
+    </Button>
   ));
 };
 

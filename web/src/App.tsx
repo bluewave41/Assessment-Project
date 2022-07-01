@@ -37,6 +37,7 @@ export function App() {
             usedLanguages.push(repo.language);
           }
         }
+        usedLanguages.push('All');
         setRepos(sortedRepos);
         setDisplayedRepos(sortedRepos);
         setLanguages(usedLanguages);
@@ -48,7 +49,13 @@ export function App() {
   }, []);
 
   const onFilter = (language: string) => {
-    setDisplayedRepos(repos.filter((repo: any) => repo.language === language));
+    if (language === 'All') {
+      setDisplayedRepos(repos);
+    } else {
+      setDisplayedRepos(
+        repos.filter((repo: any) => repo.language === language)
+      );
+    }
   };
   const onRepoClick = (title: string) => {
     const repo = repos.find((el: any) => el.name === title);
