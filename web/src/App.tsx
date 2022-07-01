@@ -4,6 +4,7 @@ import LanguagePanel from './components/LanguagePanel';
 import Repository from './components/Repository';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Box from '@mui/material/Box';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -14,7 +15,7 @@ import './App.css';
 
 export function App() {
   const [repos, setRepos] = useState([]);
-  const [error, setError] = useState<string>('');
+  const [message, setMessage] = useState<string>('Loading...');
   const [displayedRepos, setDisplayedRepos] = useState([]);
   const [selectedRepository, setSelectedRepository] = useState<any>(null);
   const [languages, setLanguages] = useState<string[]>([]);
@@ -42,7 +43,7 @@ export function App() {
         setDisplayedRepos(sortedRepos);
         setLanguages(usedLanguages);
       } catch (e) {
-        setError('An error occured. Please refresh the page.');
+        setMessage('An error occured. Please refresh the page.');
       }
     }
     getData();
@@ -65,7 +66,18 @@ export function App() {
     setSelectedRepository(null);
   };
 
-  if (selectedRepository) {
+  if (!repos.length) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+      >
+        <div>{message}</div>
+      </Box>
+    );
+  } else if (selectedRepository) {
     const url = selectedRepository.commits_url;
     return (
       <Repository
@@ -75,8 +87,6 @@ export function App() {
         onBackClick={onBackClick}
       />
     );
-  } else if (error) {
-    return <div>{error}</div>;
   } else {
     return (
       <div className="App">

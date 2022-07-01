@@ -3,6 +3,7 @@ import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import './Repository.css';
 import FloatingButton from './FloatingButton';
+import Box from '@mui/material/Box';
 
 interface RepositoryProps {
   name: string;
@@ -51,7 +52,16 @@ const Repository = (props: RepositoryProps) => {
       </div>
     );
   } else if (!commitData.hasOwnProperty('commit')) {
-    return null;
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+      >
+        <div>Loading...</div>
+      </Box>
+    );
   }
   return (
     <div className="repository">
