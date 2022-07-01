@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import './Repository.css';
+import FloatingButton from './FloatingButton';
 
 interface RepositoryProps {
   name: string;
@@ -58,11 +59,16 @@ const Repository = (props: RepositoryProps) => {
       <div>Author: {commitData.commit.author.name}</div>
       <div>Date: {new Date(commitData.commit.author.date).toDateString()}</div>
       <div>Message: {commitData.commit.message}</div>
-      <h2>Readme</h2>
-      <div style={{ backgroundColor: 'gray' }}>
-        <ReactMarkdown>{commitData.readme}</ReactMarkdown>
-      </div>
-      <button onClick={props.onBackClick}>Back</button>
+      {commitData.readme && (
+        <div className="repository">
+          <h2>Readme</h2>
+          <div style={{ backgroundColor: 'gray' }}>
+            <ReactMarkdown>{commitData.readme}</ReactMarkdown>
+          </div>
+        </div>
+      )}
+
+      <FloatingButton onClick={props.onBackClick} />
     </div>
   );
 };

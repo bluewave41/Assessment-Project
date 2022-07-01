@@ -35,7 +35,7 @@ const RepositoryList = (props: RepositoryListProps) => {
                 }}
               >
                 <span>{repo.language}</span>
-                <span>{repo.forks_count}</span>
+                <span>Forks: {repo.forks_count}</span>
               </div>
             </CardContent>
           </Card>
